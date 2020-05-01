@@ -1,6 +1,6 @@
 # Coronavirus (Covid-19) Data in the United States
 
-[ [U.S. State-Level Data](us-states.csv) ([Raw CSV](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv)) | [U.S. County-Level Data](us-counties.csv) ([Raw CSV](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)) ]
+[ [U.S. Data](us.csv) ([Raw CSV](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv)) | [U.S. State-Level Data](us-states.csv) ([Raw CSV](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv)) | [U.S. County-Level Data](us-counties.csv) ([Raw CSV](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)) ]
 
 The New York Times is releasing a series of data files with cumulative counts of coronavirus cases in the United States, at the state and county level, over time. We are compiling this time series data from state and local governments and health departments in an attempt to provide a complete record of the ongoing outbreak.
 
@@ -12,13 +12,23 @@ The data begins with the first reported coronavirus case in Washington State on 
 
 ## United States Data
 
-Data on cumulative coronavirus cases and deaths can be found in two files for states and counties.
+Data on cumulative coronavirus cases and deaths can be found in three files, one for each of these geographic levels: U.S., states and counties.
+ 
+Each row of data reports cumulative counts based on our best reporting up to the moment we publish an update. We do our best to revise earlier entries in the data when we receive new information. If a county is not listed for a date, then there were zero reported confirmed cases and deaths.
 
-Each row of data reports cumulative counts based on our best reporting up to the moment we publish an update. We do our best to revise earlier entries in the data when we receive new information.
-
-Both files contain [FIPS codes](https://www.census.gov/quickfacts/fact/note/US/fips), a standard geographic identifier, to make it easier for an analyst to combine this data with other data sets like a map file or population data.
+State and county files contain [FIPS codes](https://www.census.gov/quickfacts/fact/note/US/fips), a standard geographic identifier, to make it easier for an analyst to combine this data with other data sets like a map file or population data.
 
 Download all the data or clone this repository by clicking the green "Clone or download" button above.
+
+### U.S. National-Level Data
+
+The daily number of cases and deaths nationwide, including states, U.S. territories and the District of Columbia, can be found in the [us.csv](us.csv) file.  ([Raw CSV file here.](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv))
+
+```
+date,cases,deaths
+2020-01-21,1,0
+...
+```
 
 ### State-Level Data
 
@@ -58,9 +68,21 @@ For those reasons, our data will in some cases not exactly match with the inform
 
 Confirmed cases are patients who test positive for the coronavirus. We consider a case confirmed when it is reported by a federal, state, territorial or local government agency.
 
+* "Probable" Cases and Deaths
+
+On April 5, the Council of State and Territorial Epidemiologists Centers [advised states](https://int.nyt.com/data/documenthelper/6908-cste-interim-20-id-01-covid-19/85d47e89b637cd643d50/optimized/full.pdf) to include both confirmed cases, based on laboratory testing, and probable cases, based on specific criteria for symptoms and exposure. The Centers for Disease Control adopted these definitions and national CDC data began including confirmed and probable cases on April 14.
+
+Some states and counties are starting to report these "probable" Covid-19 cases and deaths. For the time being, we are attempting to continue only counting lab-confirmed cases and deaths while we explore the possibility of switching methodologies or reporting both numbers separately.
+
+Please see the Geographic Exceptions section below for more details.
+
 * Dates
 
 For each date, we show the cumulative number of confirmed cases and deaths as reported that day in that county or state. All cases and deaths are counted on the date they are first announced.
+
+* Declining Counts
+
+In some cases, the number of cases or deaths for a state or county will decline. This can occur when a state or county corrects an error in the number of cases or deaths they've reported in the past, or when a state moves cases from one county to another. When we are able, we will historically revise counts for all impacted dates. In other cases, this will be reflected in a single-day drop in the number of cases or deaths.
 
 * Counties
 
@@ -76,22 +98,71 @@ Sometimes, cases are first reported in one county and then moved to another coun
 
 ### Geographic Exceptions
 
-* New York City
+* New York
 
-All cases for the five boroughs of New York City (New York, Kings, Queens, Bronx and Richmond counties) are assigned to a single area called New York City.
+All cases for the five boroughs of New York City (New York, Kings, Queens, Bronx and Richmond counties) are assigned to a single area called New York City. There is a large jump in the number of deaths on April 6th due to switching from data from New York City to data from New York state for deaths. We are not currently including the probable deaths reported by New York City.
+
+For all New York state counties, starting on April 8th we are reporting deaths by place of fatality instead of residence of individual. There were no new deaths reported by the state on April 17th or April 18th.
+
+* Georgia
+
+Starting April 12th, our case count excludes cases labeled by the state as "Non-Georgia Resident" leading to a one day drop in cases. These cases were previously included as cases with "Unknown" county.
+
+* Alabama
+
+Alabama's numbers for April 17th contained an [error](https://twitter.com/ALPublicHealth/status/1251531524958289920) in reporting of lab test results that the state is working to correct. The number of deaths drops on April 23rd for an unknown reason.
 
 * Kansas City, Mo.
 
 Four counties (Cass, Clay, Jackson and Platte) overlap the municipality of Kansas City, Mo. The cases and deaths that we show for these four counties are only for the portions exclusive of Kansas City. Cases and deaths for Kansas City are reported as their own line.
 
-* Alameda, Calif.
+* Alameda County, Calif.
 
 Counts for Alameda County include cases and deaths from Berkeley and the Grand Princess cruise ship.
 
+* Douglas County, Neb.
+
+Counts for Douglas County include cases brought to the state from the Diamond Princess cruise ship.
+
 * Chicago
 
-All cases and deaths for Chicago are reported as part of Cook County. 
+All cases and deaths for Chicago are reported as part of Cook County.
 
+* Guam
+
+Counts for Guam include cases reported from the USS Theodore Roosevelt.
+
+* Puerto Rico
+
+On April 21st, the territory's health department revised their number of cases downward, saying they had been double counting some coronavirus patients in official reports, leading to a higher number of cases reported than actually confirmed. 
+
+Additionally, from approximately April 12th through April 18th, the count of deaths for Puerto Rico include some probable Covid-19 related deaths that were not lab-confirmed. Starting April 19th these have been removed. We will revise the numbers for the 12th to 18th as possible.
+
+#### Probable Cases and Deaths
+
+* Colorado
+
+Numbers reflect the combined number of lab-confirmed and probable cases and deaths as reported by the state. On April 25th, the state revised downward the number of deaths after removing "about 29 duplicates" from the number of "probable deaths" included in the total.
+
+* Idaho
+
+The total cases number includes only lab-confirmed cases, but the deaths number does include the deaths of probable Covid-19 cases.
+
+* Louisiana
+
+The total cases number and total deaths number include only lab-confirmed cases and deaths. The state appears to be reporting the deaths of probable Covid-19 cases separately from the total number of deaths statewide or in each parish but we are not yet including those cases in our numbers.
+
+* Ohio
+
+The state reports lab-confirmed and probable cases and deaths separately at the state level but combine lab-confirmed and probable cases and deaths at the county level. Our statewide and county numbers combine both case types.
+
+* Pennsylvania
+
+The total cases number includes lab-confirmed and probable cases starting around April 16th, but the deaths number does not include probable deaths, except for on April 21st and April 22nd when it does.
+
+* Virginia
+
+The state reports lab-confirmed and probable cases and deaths separately at the state level but combine lab-confirmed and probable cases and deaths at the county level. Our statewide and county numbers combine both case types.
 
 ## License and Attribution
 
@@ -101,7 +172,7 @@ If you use this data, you must attribute it to “The New York Times” in any p
 
 If you use it in an online presentation, we would appreciate it if you would link to our U.S. tracking page at [https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html](https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html).
 
-If you use this data, please let us know at covid-data@nytimes.com and indicate if you would be willing to talk to a reporter about your research.
+If you use this data, please let us know at covid-data@nytimes.com.
 
 See our [LICENSE](LICENSE) for the full terms of use for this data.
 
